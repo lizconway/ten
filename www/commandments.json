@@ -1,0 +1,64 @@
+{
+	"commandments":[
+		{
+			"number":"1",
+			"title":"Thou shalt have no other gods before me", 
+			"description":"I am the LORD your God, who brought you out of the land of Egypt, out of the house of bondage. You shall have no other gods before me.",
+			"url":"img/cmdmnt-1.jpg" 
+		},
+		{
+			"number":"2",
+			"title":"Thou shalt not make unto thee any graven image", 
+			"description":"You shall not make for yourself a graven image, or any likeness of anything that is in heaven above, or that is in the earth beneath, or that is in the water under the earth; you shall not bow down to them or serve them.",
+			"url":"img/cmdmnt-2.jpg" 
+		},
+		{
+			"number":"3",
+			"title":"Thou shalt not take the name of the Lord thy God in vain", 
+			"url":"img/cmdmnt-3.jpg" 
+		},
+		{
+			"number":"4",
+			"title":"Remember the sabbath day, to keep it holy", 
+			"description":"Remember the sabbath day, to keep it holy. Six days you shall labor, and do all your work; but the seventh day is a sabbath to the Lord your God; in it you shall not do any work.",
+			"url":"img/cmdmnt-4.jpg" 
+		},
+		{
+			"number":"5",
+			"title":"Honour thy father and thy mother", 
+			"description":"Honor your father and your mother, that your days may be long in the land which the Lord your God gives you",
+			"url":"img/cmdmnt-5.jpg" 
+		},
+		{
+			"number":"6",
+			"title":"Thou shalt not kill", 
+			"url":"img/cmdmnt-6.jpg" 
+		},
+		{
+			"number":"7",
+			"title":"Thou shalt not commit adultery", 
+			"url":"img/cmdmnt-7.jpg" 
+		},
+		{
+			"number":"8",
+			"title":"Thou shalt not steal", 
+			"url":"img/cmdmnt-8.jpg" 
+		},
+		{
+			"number":"9",
+			"title":"Thou shalt not bear false witness against thy neighbour", 
+			"url":"img/cmdmnt-9.jpg" 
+		},
+		{
+			"number":"10",
+			"title":"Thou shall not covet thy neighbour's goods", 
+			"description":"You shall not covet your neighbor's house; you shall not covet your neighbour's wife, or his manservant, or his maidservant, or his ox, or his ass, or anything that is your neighbour's.",
+			"url":"img/cmdmnt-10.jpg" 
+		},
+		{
+			"number":"11",
+			"title":"Thou shalt not get caught", 
+			"url":"img/cmdmnt-11.jpg" 
+		}
+	]
+}

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>The 10 Commandments</title>
+        
+        <link rel="stylesheet" href="css/themes/biblical.min.css" />
+        <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+        <link rel="stylesheet" href="jQuery/jquery.mobile.structure-1.4.5.min.css">
+        <link rel="stylesheet" href="css/cmdt.css"> 
+    
+        <script src="jQuery/jquery-1.12.3.min.js"></script>
+        <script type="text/javascript" src="jQuery/jquery.mobile-1.4.5.min.js"></script>
+
+    </head>
+    <body>
+        <div class="app">
+            <div id="stone-tablet" data-theme="b">
+                <div data-role="page" id="searchMe" data-theme="b">
+                    <div data-role="panel" class="intro" id="instructions" data-position="left" data-display="push" data-theme="a">
+                        <h3>Instructions</h3>
+                        <ul>
+                            <li>Click in the input box (Filter items...) and enter any filter criteria to reduce the list.</li>
+                            <li>Click on the chosen commandment you wish to view</li>
+                            <li><p>
+                                        When viewing the commandment detail there is a small icon in the
+                                            <strong>top right hand corner</strong>
+                                </p>
+                                <p>Click on that icon to see a translation list.</p>
+                            <li>Click the button at the bottom of this panel to return to the list.</li>
+                            <li>On both this panel and the panel on the commandment detail page - Swipe across or Click anywhere outside the side panel to hide it again.</li>
+                        </ul>
+                        <a href="#" data-rel="close" data-role="button">Close Me</a>
+                        
+                    </div>  <!-- /instructions -->
+                    <div data-role="content" >
+                        <div class="content-primary">
+                            <a href="#instructions" class="ui-btn"
+                                                data-theme="a">
+                                                Instructions
+                            </a>
+                            <h1>Your wish is my Commandment</h1>
+                            <div data-demo-html="true">
+                                <!-- <ol id="myList" data-filter="true"
+                                    data-role="listview" data-theme="b" data-divider-theme="e">
+                                    
+                                    </ol> -->
+                                <ul id="myList"
+                                    data-filter="true" data-role="listview" data-theme="b"
+                                    data-divider-theme="c">
+
+                                </ul>
+
+                            </div>
+                        </div> <!-- /content-primary -->
+                    </div> <!-- /content -->
+                </div> <!-- /searchMe -->
+            </div> <!-- /stone-tablet -->
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+
+            //standard jQuery ajax technique to load a JSON file
+            $(document).ready(function(){
+                /**
+                 *  Load the commandments
+                 *
+                 *  REPLACE WITH CALL TO SERVER
+                 *  In this ajax call the url needs to be replaced with a url to a real server url.
+                 *  E.G. http://api.flickr.com/services/feeds/photos_public.gne?
+        v         *  This server url will need to return a JSON file similar in format 
+                 *  to the 'commandments.json' mock up client side content file included here.
+                 *  This is one portion of the code that should be dynamic if the app were using live data
+                 */
+                $.ajax({
+                
+                    type:"GET",
+                    url: "commandments.json",
+                    dataType: "json",
+                    success: createList,
+                    error: function(xhr, status, error) {
+                            // This callback function will trigger on unsuccessful action                
+                            var err = eval("(" + xhr.responseText + ")");
+                            console.log("ERROR :  " + err.Message);
+                        
+                            console.log("ERROR : error :: " + error);
+                        }
+                    
+                });
+                
+                /**
+                 *  Load the translations
+                 *
+                 *  REPLACE WITH CALL TO SERVER
+                 *  In this ajax call the url needs to be replaced with a url to a real server url.
+                 *  E.G. http://api.flickr.com/services/feeds/photos_public.gne?
+                 *  This server url will need to return a JSON file similar in format 
+                 *  to the 'txtSpk.json' mock up client side content file included here.
+                 *  This is one portion of the code that should be dynamic if the app were using live data
+                 */
+                $.ajax({
+                
+                    type:"GET",
+                    url: "txtSpk.json",
+                    dataType: "json",
+                    success: buildTxtTable,
+                    error: function(xhr, status, error) {
+                            // This callback function will trigger on unsuccessful action                
+                            var err = eval("(" + xhr.responseText + ")");
+                            console.log("ERROR :  " + err.Message);
+                        
+                            console.log("ERROR : error :: " + error);
+                        }
+                    
+                });
+                
+                console.log("Ready!");
+                
+            });
+            
+            /** Parsing JSON data
+             *  This function is called when we load the commandments
+            /* this function is the callback function specified in the ajax 'success' event
+            */
+            function createList(data) {
+        
+                /*
+                 *  Loop through each commandment in the JSON input data
+                 *  For each commandment :
+                        Put a commandment on the list and link it to its page with a random transition 
+                        Build the page containing the commandment details and add it dynamically to the SPA 
+                 */
+                for(var command in data.commandments) {
+                    var number = data.commandments[command].number;
+                    var title = data.commandments[command].title;
+                    var description = data.commandments[command].description;
+                    var src = data.commandments[command].url;
+
+                    var transitions = ['fade', 'flip', 'flow', 'pop', 'slide', 'slidefade', 'slideup', 'slidedown', 'turn', 'none'];
+                    // REF : http://www.w3schools.com/jsref/jsref_random.asp
+                    var randTran = Math.floor((Math.random() * 10) + 1); 
+                    if(number <= 10) {
+                        $("#myList").append('<li><a href="#page-' + number +'" data-transition="' + transitions[randTran] + '">' + number + '. ' + title +  '</a></li>');
+                    } else {
+                        $("#myList").append('<li><a href="#page-' + number +'" data-transition="flow">Is there any more?</a></li>');
+                    }
+                    $("#stone-tablet").append(buildPage(number, title, description, src));
+                }
+                    $("#myList").listview('refresh');
+            }
+            
+            /** Parsing JSON data
+             *  This function is called when we load the txtSpk translations
+            /* this function is the callback function specified in the ajax 'success' event
+            */
+            function buildTxtTable(data) {
+                var table = buildTxtSpkTransl8n(data);
+        
+                /*
+                 *  Each page has a side panel containing the translation - unfortunately I could not add a filterable table to an external panel which would have been referenced by each commandment detail page.  This would of course have been much simpler and would have removed the need to add the translation panel to each commandment detail page if it worked.
+                 *  Make sure not to add the translation table to the intro panel on the Commandment list page.
+                 */
+                $("[data-role='panel']:not(.intro)").append(table);
+            }
+            
+            function buildPage(number, title, desc, image) {
+                var page = '<div data-role="page" id="page-' + number + '" data-theme="c">'
+                            + '<h1>' + number + '. ' + title + '</h1><div data-role="content">';
+                /*
+                 *  Some commandments have a description included in the JSON file
+                 *  If this commandment has a description then add it here
+                 */
+                if(desc !== undefined) {
+                    page += '<p class="description">' + desc + '</p>';
+                }
+                page += '<img src="' + image + '">';
+                
+                // Add link to the translation side panel
+                page += "<a href=\"#txtPanel-" + number + "\" class=\"ui-btn ui-btn-right ui-btn-icon-notext ui-icon-grid ui-corner-all\"></a>";
+                
+                // Button Link back to commandment list
+                page += "<a href=\"\#searchMe\" data-role=\"button\" data-theme=\"c\">Back to Commandments List</a>";
+                
+                page += "</div> <!-- content -->";
+                
+                // Add the translation panel as a sibling to the content
+                page += addPanel(number);
+                
+                page += "</div> <!-- page -->";
+                
+                return page;
+            }
+            
+            /*
+             *  Build a txt spk transl8n Table (= Text Speak Translation)
+             */
+            function buildTxtSpkTransl8n(data) {
+                var transl8Page = "<h3>Translation</h3><div>";
+                transl8Page += '<table data-filter="true" data-role="listview" data-theme="b" data-divider-theme="c">';
+        
+                // Add a row in the table for each text speak item in the JSON file
+                for(var text in data.textSpeak) {
+                    var txt = data.textSpeak[text].txt;
+                    var english = data.textSpeak[text].english;
+
+                    transl8Page += "<tr><td class='txtSpk'>" +
+                                    txt + "</td><td>" +
+                                    english + "</td></tr>";
+                }
+               
+                transl8Page +=  "</table></div>";
+                    
+                return transl8Page;
+            }
+            
+            /*
+             *  Add a blank panel to the commandment detail page
+             */
+            function addPanel(number) {
+                var panel = '<div data-role="panel" id="txtPanel-' + number +
+                            '" data-position="right" data-display="overlay" data-theme="a">';
+                //var panel = '<div data-role="panel" id="txtPanel' +
+                //          '" data-position="right" data-display="overlay" data-theme="a">';console.log(panel);
+
+                    panel += '</div>';
+                
+                return panel;
+            }
+            
+            /**
+             *  The external panel for the translation
+             *  This panel is called from each of the commandment detail pages
+             *  REF :  http://stackoverflow.com/questions/16411360/how-to-inject-the-same-panel-into-mutiple-pages-using-jquery-mobile
+             */
+             // Code reuse
+             //var panel = '<div data-role="panel" id="txtPanel" data-position="right" data-display="overlay" data-theme="a" data-dismissable="false">';
+        
+             //panel += '</div>';
+        
+             $(document).one('pagebeforecreate', function () {
+             // $.mobile.pageContainer.prepend(panel);
+                var txt;
+                
+                for(i = 1; i <=10; i++ ) {
+                    txt = "#txtPanel-" + i;
+                    $(txt).panel().enhanceWithin();
+                }
+             }); 
+             
+        </script>
+    </body>
+</html>
